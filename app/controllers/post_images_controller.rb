@@ -7,11 +7,7 @@ class PostImagesController < ApplicationController
     @post_image = PostImage.new(post_image_params)
     @post_image.user_id = current_user.id
     if @post_image.save
-      tags = Vision.get_image_data(@post_image.image)
-      tags.each do |tag|
-        @post_image.tags.create(name: tag)
-      end
-      redirect_to post_images_path
+      redirect_to post_image_path(@post_image)
     else
       render :new
     end
@@ -31,10 +27,9 @@ class PostImagesController < ApplicationController
     @post_image.destroy
     redirect_to post_images_path
   end
-
   private
 
   def post_image_params
-    params.require(:post_image).permit(:shop_name, :image, :caption)
+    params.require(:post_image).permit(:title,  :image, :description)
   end
 end

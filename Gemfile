@@ -49,6 +49,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'annotate', git: 'https://github.com/ctran/annotate_models.git'
+  gem 'letter_opener_web', '~> 1.0'
 end
 
 group :test do

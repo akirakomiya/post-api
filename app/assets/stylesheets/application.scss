@@ -15,3 +15,33 @@
  */
  @import "bootstrap-sprockets";
  @import "bootstrap";
+
+body,
+#wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+footer {
+  margin-top: auto;
+}
+.footer-box{
+   display: flex;
+   justify-content: center;
+   align-items: center
+}
+.footer-contents{
+	color: #fff;
+}
+.ka{
+	color: white;
+}
+
+.hover10 {
+  border-radius: 50%;
+  transition: all 0.6s ease 0s;
+}
+.hover10:hover {
+  cursor: pointer;
+  transform: scale(1.1, 1.1);
+}

@@ -10,7 +10,6 @@
 #  last_sign_in_at        :datetime
 #  last_sign_in_ip        :string
 #  name                   :string
-#  profile_image          :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -31,7 +30,10 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   has_many :post_images, dependent: :destroy
+  has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   validates :name, presence: true
+  validates :name, length:  { minimum: 2, maximum: 20 }
   validates :email, presence: true
 
   attachment :profile_image

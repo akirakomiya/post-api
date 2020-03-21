@@ -1,6 +1,6 @@
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
-# incrementally modify your database, and thnerate this schema definition.
+# incrementally modify your database, and then regenerate this schema definition.
 #
 # Note that this schema.rb definition is the authoritative source for your
 # database schema. If you need to create the application database on another
@@ -10,20 +10,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_21_093744) do
+ActiveRecord::Schema.define(version: 2020_03_21_144101) do
 
-  create_table "post_images", force: :cascade do |t|
-    t.text "shop_name"
-    t.text "image_id"
-    t.text "caption"
+  create_table "favorites", force: :cascade do |t|
     t.integer "user_id"
+    t.integer "post_image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
+  create_table "post_comments", force: :cascade do |t|
+    t.text "comment"
+    t.integer "user_id"
     t.integer "post_image_id"
+    t.decimal "score", precision: 5, scale: 3
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "post_images", force: :cascade do |t|
+    t.text "title"
+    t.text "image_id"
+    t.text "description"
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -42,7 +51,6 @@ ActiveRecord::Schema.define(version: 2020_03_21_093744) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "profile_image"
     t.string "profile_image_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

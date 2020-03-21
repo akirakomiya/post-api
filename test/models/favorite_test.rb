@@ -1,14 +1,18 @@
 # == Schema Information
 #
-# Table name: tags
+# Table name: favorites
 #
 #  id            :integer          not null, primary key
-#  name          :string
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  post_image_id :integer
+#  user_id       :integer
 #
 
-class Tag < ApplicationRecord
-	 belongs_to :post_image
+require 'test_helper'
+
+class FavoriteTest < ActiveSupport::TestCase
+  # test "the truth" do
+  #   assert true
+  # end
 end
