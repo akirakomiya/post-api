@@ -6,10 +6,10 @@
   <h3 class="profile-name"><%= @user.name %></h3>
   <%= attachment_image_tag @user, :profile_image, size: '100x100', format: 'jpeg', class: "img-circle pull-left profile-img", fallback: "no_image.jpg" %>
   <% if @user.id == current_user.id %>
-    <p><%= link_to "プロフィール編集", edit_user_path(@user), class: "pull-right" %></p>
+    <p><%= link_to "プロフィール編集", edit_user_path(@user)%></p>
   <% end %>
 </div>
-<section class="sct-color-1 slice">
+<section class="sct-color-1 slice" style = "height : 1000%">
   <div class="container-fluid masonry-container">
     <div class="row">
       <div class="col-md-8 col-sm-offset-2">
@@ -29,7 +29,7 @@
                   <%= attachment_image_tag post_image.user, :profile_image, size: '100x100', fallback: "no_image.jpg", class: "img-circle pull-left profile-thumb" %>
                   <h3 class="block-title">
                     <%= link_to post_image_path(post_image.id) do %>
-                      <i class="fa fa-map-marker"></i><%= post_image.title %>
+                      <%= post_image.title %>
                     <% end %>
                   </h3>
                   <p><%= post_image.description %></p>
@@ -38,7 +38,10 @@
                       <%= post_image.user.name %>
                     </li>
                     <li>
-                    <a href="#"><%= post_image.post_comments.count %></a>
+                    <i class="fa fa-comment"></i>
+                    <%= link_to post_image_path(post_image.id) do %>
+                      <%= post_image.post_comments.count %>件
+                    <% end %>
                     </li>
                   </ul>
                 </div>

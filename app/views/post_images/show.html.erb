@@ -2,6 +2,8 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12 post_images_container">
+        <p class="notice"><%= notice %></p>
+       <p class="alert"><%= alert %></p
         <div class="post-item">
           <div class="post-meta-top">
             <div class="post-image">
@@ -13,18 +15,31 @@
             <ul class="meta-info-cells v4 float-wrapper">
               <li>
                 <i class="fa fa-user"></i>
-                By<a href="#"><%= @post_image.user.name %></a>
+                By<%= link_to user_path(@post_image.user.id) do %>
+                <%= @post_image.user.name %>
+                <% end %>
               </li>
               <li>
                 <i class="fa fa-calendar"></i><%= @post_image.created_at.strftime('%Y/%m/%d') %>
               </li>
               <li>
+                  <% if @post_image.favorited_by?(current_user) %>
+                     <%= link_to post_image_favorites_path(@post_image, redirect_id: 0), method: :delete, remote: true do %>
+                      <span class="glyphicon glyphicon-heart"><%= @post_image.favorites.count%></span>
+                     <% end %>
+                  <% else %>
+                     <%= link_to post_image_favorites_path(@post_image, redirect_id: 0), method: :post, remote: true do %>
+                      <span class="glyphicon glyphicon-heart-empty"><%= @post_image.favorites.count %></span>
+                     <% end %>
+                  <% end %>
+              </li>
+              <li>
                 <i class="fa fa-comment"></i>
-                <a href="#comments"><%= @post_image.post_comments.count %></a>
+                <%= @post_image.post_comments.count %>
               </li>
               <li>
                 <% if @post_image.user == current_user %>
-                  <%= link_to "削除", post_image_path(@post_image), method: :delete %>
+                  <%= link_to "削除", post_image_path(@post_image), method: :delete, data: { confirm: 'Are you sure?' } %>
                 <% end %>
               </li>
             </ul>
@@ -56,6 +71,9 @@
                         </span>
                       </div>
                       <div class="comment-entry"><%= post_comment.comment %></div>
+                      <span class="comment-score">
+                        <span class="comment-score"><%= post_comment.score %></span>
+                      </span>
                     </div>
                   </div>
                 </li>
@@ -75,6 +93,9 @@
               </div>
             </div>
             <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+            <div>
+              <p>※コメントの内容をポジティブな内容かネガティブな内容かを-1.0〜1.0で判断してくれます。</p>
+            </div>
           <% end %>
         </div>
       </div>

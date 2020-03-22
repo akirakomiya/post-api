@@ -1,4 +1,4 @@
-<section class="sct-color-1 slice">
+<section class="sct-color-1 slice" style = "height : 100%">
   <div class="container-fluid masonry-container">
     <div class="row">
       <div class="col-md-8 col-sm-offset-2">
@@ -33,9 +33,20 @@
                       <%= post_image.user.name %>
                     </li>
                     <li>
+                     <% if post_image.favorited_by?(current_user) %>
+                      <%= link_to post_image_favorites_path(post_image, redirect_id: 0), method: :delete, remote: true do %>
+                      <span class="glyphicon glyphicon-heart"><%= post_image.favorites.count%></span>
+                      <% end %>
+                     <% else %>
+                      <%= link_to post_image_favorites_path(post_image, redirect_id: 0), method: :post, remote: true do %>
+                       <span class="glyphicon glyphicon-heart-empty"><%= post_image.favorites.count %></span>
+                     <% end %>
+                    <% end %>
+                    </li>
+                    <li>
                     <i class="fa fa-comment"></i>
                     <%= link_to post_image_path(post_image.id) do %>
-                      <%= post_image.post_comments.count %>
+                      <%= post_image.post_comments.count %>件
                     <% end %>
                     </li>
                   </ul>
